@@ -1,0 +1,21 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USERNAME: admin
+      MYSQL_DATABASE: user_db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+
+volumes:
+  mysql-data:
+    name: board-system-mysql-data
+
+networks:
+  default:
+    external: true
+    name: msa-net
